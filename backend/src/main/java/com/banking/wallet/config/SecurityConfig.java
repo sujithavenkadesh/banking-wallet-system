@@ -53,7 +53,7 @@ public class SecurityConfig {
             .exceptionHandling(ex -> ex.authenticationEntryPoint(authenticationEntryPoint))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/auth/**").permitAll()
-                .requestMatchers(HttpMethod.GET, "/api/accounts/**").hasAnyRole("ADMIN", "CUSTOMER")
+                .requestMatchers("/api/accounts/**").hasAnyRole("ADMIN", "CUSTOMER")
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")
                 .requestMatchers("/api/transactions/**").hasAnyRole("ADMIN", "CUSTOMER")
                 .anyRequest().authenticated()
