@@ -21,7 +21,7 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 
         String json = String.format(
-                "{\"status\":401,\"message\":\"Invalid username or password\",\"timestamp\":\"%s\"}",
+                "{\"status\":401,\"message\":\"Authentication required\",\"timestamp\":\"%s\"}",
                 LocalDateTime.now()
         );
 
