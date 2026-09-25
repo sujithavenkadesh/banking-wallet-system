@@ -18,6 +18,7 @@ export default function Navbar() {
       <div className="navbar-links">
         <Link to="/dashboard">Dashboard</Link>
         <Link to="/transfer">Transfer</Link>
+        <Link to="/history">History</Link>
         <span className="navbar-user">{username} ({role})</span>
         <button onClick={handleLogout} className="btn-logout">Logout</button>
       </div>

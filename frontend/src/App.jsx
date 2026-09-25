@@ -7,6 +7,7 @@ import Dashboard from './components/Dashboard';
 import TransferForm from './components/TransferForm';
 import Statement from './components/Statement';
 import './index.css';
+import TransactionHistory from './components/TransactionHistory';
 
 function ProtectedRoute({ children }) {
   const { token } = useAuth();
@@ -26,6 +27,7 @@ function AppRoutes() {
         <Route path="/transfer" element={<ProtectedRoute><TransferForm /></ProtectedRoute>} />
         <Route path="/statement/:accountNumber" element={<ProtectedRoute><Statement /></ProtectedRoute>} />
         <Route path="/" element={<Navigate to={token ? '/dashboard' : '/login'} />} />
+        <Route path="/history" element={<ProtectedRoute><TransactionHistory /></ProtectedRoute>} />
       </Routes>
     </BrowserRouter>
   );

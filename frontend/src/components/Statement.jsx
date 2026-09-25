@@ -43,8 +43,8 @@ export default function Statement() {
         {transactions.map((t) => (
           <div key={t.id} className="statement-row">
             <span>{new Date(t.timestamp).toLocaleString('en-IN')}</span>
-            <span>{t.fromAccountNumber || '—'}</span>
-            <span>{t.toAccountNumber || '—'}</span>
+            <span>{t.fromAccountOwner ? `${t.fromAccountOwner} (${t.fromAccountNumber})` : '—'}</span>
+            <span>{t.toAccountOwner ? `${t.toAccountOwner} (${t.toAccountNumber})` : '—'}</span>
             <span className={t.fromAccountNumber === accountNumber ? 'amount-debit' : 'amount-credit'}>
               {t.fromAccountNumber === accountNumber ? '-' : '+'}₹{t.amount.toLocaleString('en-IN')}
             </span>

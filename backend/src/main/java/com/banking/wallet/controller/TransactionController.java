@@ -22,6 +22,11 @@ public class TransactionController {
         return ResponseEntity.ok(transactionService.transfer(request));
     }
 
+    @GetMapping("/history")
+    public ResponseEntity<List<TransactionResponse>> getMyHistory() {
+        return ResponseEntity.ok(transactionService.getMyTransactionHistory());
+    }
+
     @GetMapping("/statement/{accountNumber}")
     public ResponseEntity<List<TransactionResponse>> getStatement(@PathVariable String accountNumber) {
         return ResponseEntity.ok(transactionService.getStatement(accountNumber));

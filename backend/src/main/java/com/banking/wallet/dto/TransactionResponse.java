@@ -10,7 +10,9 @@ import java.time.LocalDateTime;
 public class TransactionResponse {
     private Long id;
     private String fromAccountNumber;
+    private String fromAccountOwner;
     private String toAccountNumber;
+    private String toAccountOwner;
     private BigDecimal amount;
     private String type;
     private String status;

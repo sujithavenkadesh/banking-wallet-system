@@ -11,6 +11,10 @@ import java.util.List;
 public interface TransactionRepository extends JpaRepository<Transaction, Long> {
 
     // For account statements — all transactions where account was sender or receiver
+    @Query("SELECT t FROM Transaction t WHERE t.fromAccount.owner.username = :username " +
+       "OR t.toAccount.owner.username = :username ORDER BY t.timestamp DESC")
+    List<Transaction> findAllByUsername(@Param("username") String username);
+
     @Query("SELECT t FROM Transaction t WHERE t.fromAccount = :account OR t.toAccount = :account ORDER BY t.timestamp DESC")
     List<Transaction> findByAccount(@Param("account") Account account);
 

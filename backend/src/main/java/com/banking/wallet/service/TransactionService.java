@@ -136,20 +136,28 @@ public class TransactionService {
                 .stream().map(this::toResponse).collect(Collectors.toList());
     }
 
+    public List<TransactionResponse> getMyTransactionHistory() {
+        String currentUsername = getCurrentUsername();
+        return transactionRepository.findAllByUsername(currentUsername)
+                .stream().map(this::toResponse).collect(Collectors.toList());
+    }
+
     private String getCurrentUsername() {
         return SecurityContextHolder.getContext().getAuthentication().getName();
     }
 
     private TransactionResponse toResponse(Transaction t) {
-        return new TransactionResponse(
-                t.getId(),
-                t.getFromAccount() != null ? t.getFromAccount().getAccountNumber() : null,
-                t.getToAccount() != null ? t.getToAccount().getAccountNumber() : null,
-                t.getAmount(),
-                t.getType().name(),
-                t.getStatus().name(),
-                t.getRemarks(),
-                t.getTimestamp()
-        );
+    return new TransactionResponse(
+            t.getId(),
+            t.getFromAccount() != null ? t.getFromAccount().getAccountNumber() : null,
+            t.getFromAccount() != null ? t.getFromAccount().getOwner().getUsername() : null,
+            t.getToAccount() != null ? t.getToAccount().getAccountNumber() : null,
+            t.getToAccount() != null ? t.getToAccount().getOwner().getUsername() : null,
+            t.getAmount(),
+            t.getType().name(),
+            t.getStatus().name(),
+            t.getRemarks(),
+            t.getTimestamp()
+       );
     }
 }
