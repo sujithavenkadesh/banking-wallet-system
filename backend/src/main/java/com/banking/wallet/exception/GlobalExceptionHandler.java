@@ -67,11 +67,11 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
     }
 
-    @ExceptionHandler(InvalidPinException.class)
-    public ResponseEntity<ErrorResponse> handleInvalidPin(InvalidPinException ex) { 
-    ErrorResponse error = new ErrorResponse(HttpStatus.UNAUTHORIZED.value(), ex.getMessage(), LocalDateTime.now());
-    return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(error);
-    }
+   @ExceptionHandler(InvalidPinException.class)
+   public ResponseEntity<ErrorResponse> handleInvalidPin(InvalidPinException ex) {
+    ErrorResponse error = new ErrorResponse(HttpStatus.FORBIDDEN.value(), ex.getMessage(), LocalDateTime.now());
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
+   }
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ErrorResponse> handleGenericException(Exception ex) {

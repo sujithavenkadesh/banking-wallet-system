@@ -29,8 +29,9 @@ export default function Login() {
   return (
     <div className="auth-container">
       <form className="auth-card" onSubmit={handleSubmit}>
-        <h2>Welcome Back</h2>
-        <p className="auth-subtitle">Sign in to your wallet</p>
+        <div className="auth-logo">💰</div>
+        <h2>WalletBank</h2>
+        <p className="auth-subtitle">Secure, instant money transfers — sign in to continue</p>
 
         {error && <div className="error-banner">{error}</div>}
 

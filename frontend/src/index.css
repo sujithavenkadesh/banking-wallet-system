@@ -383,7 +383,62 @@ body {
   color: #c1121f;
 }
 
+.auth-logo {
+  font-size: 40px;
+  text-align: center;
+  margin-bottom: 8px;
+}
+
 .badge-pending {
   background: #e0e0e0;
   color: #555;
+}
+.transfer-summary {
+  background: #f8f9fb;
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 8px;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+  border-bottom: 1px solid #e8e8ec;
+}
+
+.summary-row:last-child {
+  border-bottom: none;
+}
+
+.summary-row span {
+  color: #777;
+}
+
+.transfer-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn-secondary {
+  flex: 1;
+  padding: 13px;
+  background: #eee;
+  color: #333;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.btn-secondary:hover {
+  background: #ddd;
+}
+
+.transfer-actions .btn-primary {
+  flex: 2;
+  margin-top: 0;
 }
