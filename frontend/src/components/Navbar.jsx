@@ -19,6 +19,7 @@ export default function Navbar() {
         <Link to="/dashboard">Dashboard</Link>
         <Link to="/transfer">Transfer</Link>
         <Link to="/history">History</Link>
+        <Link to="/set-pin">Set PIN</Link>
         <span className="navbar-user">{username} ({role})</span>
         <button onClick={handleLogout} className="btn-logout">Logout</button>
       </div>

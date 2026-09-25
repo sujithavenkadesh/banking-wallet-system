@@ -26,6 +26,8 @@ public class TransactionService {
     private final AccountRepository accountRepository;
     private final TransactionRepository transactionRepository;
     private final AuditLogRepository auditLogRepository;
+    private final com.banking.wallet.repository.UserRepository userRepository;
+    private final org.springframework.security.crypto.password.PasswordEncoder passwordEncoder;
 
     // Any transfer at or above this amount gets flagged for review instead of auto-completing
     private static final BigDecimal FRAUD_THRESHOLD = new BigDecimal("50000");
@@ -36,6 +38,24 @@ public class TransactionService {
 
         if (request.getFromAccountNumber().equals(request.getToAccountNumber())) {
             throw new IllegalArgumentException("Cannot transfer to the same account");
+        }
+
+        // Verify transaction PIN before proceeding
+        com.banking.wallet.entity.User currentUser = userRepository.findByUsername(currentUsername)
+        .orElseThrow(() -> new ResourceNotFoundException("User not found"));
+
+        if (currentUser.getTransactionPin() == null) {
+        throw new com.banking.wallet.exception.InvalidPinException(
+            "No transaction PIN set. Please set a PIN before transferring money.");
+        }
+
+        if (!passwordEncoder.matches(request.getPin(), currentUser.getTransactionPin())) {
+        auditLogRepository.save(AuditLog.builder()
+            .action("PIN_VERIFICATION_FAILED")
+            .performedBy(currentUsername)
+            .details("Incorrect transaction PIN entered during transfer attempt")
+            .build());
+        throw new com.banking.wallet.exception.InvalidPinException("Incorrect transaction PIN");
         }
 
         // Lock both rows in a FIXED order (alphabetical by account number) to prevent deadlocks.

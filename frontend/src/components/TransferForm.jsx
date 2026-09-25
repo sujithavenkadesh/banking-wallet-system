@@ -3,7 +3,7 @@ import api from '../api/axios';
 
 export default function TransferForm() {
   const [accounts, setAccounts] = useState([]);
-  const [form, setForm] = useState({ fromAccountNumber: '', toAccountNumber: '', amount: '', remarks: '' });
+  const [form, setForm] = useState({ fromAccountNumber: '', toAccountNumber: '', amount: '', remarks: '', pin: '' });
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -25,7 +25,7 @@ export default function TransferForm() {
         amount: parseFloat(form.amount),
       });
       setResult(res.data);
-      setForm({ fromAccountNumber: '', toAccountNumber: '', amount: '', remarks: '' });
+      setForm({ fromAccountNumber: '', toAccountNumber: '', amount: '', remarks: '', pin: '' });
     } catch (err) {
       setError(err.response?.data?.message || 'Transfer failed');
     } finally {
@@ -79,6 +79,18 @@ export default function TransferForm() {
 
         <label>Remarks (optional)</label>
         <input name="remarks" value={form.remarks} onChange={handleChange} placeholder="e.g. rent payment" />
+
+        <label>Transaction PIN</label>
+        <input
+        type="password"
+        inputMode="numeric"
+        maxLength={6}
+        name="pin"
+        value={form.pin}
+        onChange={handleChange}
+        placeholder="Enter your 4-6 digit PIN"
+        required
+        />
 
         <button type="submit" className="btn-primary" disabled={loading}>
           {loading ? 'Processing...' : 'Send Money'}

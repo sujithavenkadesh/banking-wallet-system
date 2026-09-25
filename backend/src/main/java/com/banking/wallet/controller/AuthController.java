@@ -25,4 +25,15 @@ public class AuthController {
     public ResponseEntity<AuthResponse> login(@Valid @RequestBody LoginRequest request) {
         return ResponseEntity.ok(authService.login(request));
     }
+
+    @PostMapping("/set-pin")
+    public ResponseEntity<Void> setPin(@jakarta.validation.Valid @RequestBody com.banking.wallet.dto.SetPinRequest request) {
+    authService.setTransactionPin(request.getPin());
+        return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/has-pin")
+    public ResponseEntity<Boolean> hasPin() {
+        return ResponseEntity.ok(authService.hasPinSet());
+    }
 }

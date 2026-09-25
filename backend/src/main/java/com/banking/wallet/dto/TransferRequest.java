@@ -10,6 +10,9 @@ public class TransferRequest {
     @NotBlank(message = "Source account number is required")
     private String fromAccountNumber;
 
+    @jakarta.validation.constraints.NotBlank(message = "Transaction PIN is required")
+    private String pin;
+
     @NotBlank(message = "Destination account number is required")
     private String toAccountNumber;
 

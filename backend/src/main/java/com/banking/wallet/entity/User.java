@@ -26,6 +26,9 @@ public class User {
     @Column(nullable = false)
     private String password; // stored as BCrypt hash
 
+    @Column(name = "transaction_pin")
+    private String transactionPin; // BCrypt-hashed, nullable until user sets it
+
     @Column(nullable = false, unique = true)
     private String email;
 

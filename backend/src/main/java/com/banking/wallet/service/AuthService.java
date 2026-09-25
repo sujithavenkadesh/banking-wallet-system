@@ -76,4 +76,31 @@ public class AuthService {
 
         return new AuthResponse(token, user.getUsername(), user.getRole().name());
     }
+
+    public void setTransactionPin(String pin) {
+    String currentUsername = org.springframework.security.core.context.SecurityContextHolder
+            .getContext().getAuthentication().getName();
+
+    User user = userRepository.findByUsername(currentUsername)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    user.setTransactionPin(passwordEncoder.encode(pin));
+    userRepository.save(user);
+
+    auditLogRepository.save(AuditLog.builder()
+            .action("PIN_SET")
+            .performedBy(currentUsername)
+            .details("Transaction PIN configured")
+            .build());
+    }
+
+    public boolean hasPinSet() {
+    String currentUsername = org.springframework.security.core.context.SecurityContextHolder
+            .getContext().getAuthentication().getName();
+
+    User user = userRepository.findByUsername(currentUsername)
+            .orElseThrow(() -> new RuntimeException("User not found"));
+
+    return user.getTransactionPin() != null;
+    }
 }
